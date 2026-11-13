@@ -1,0 +1,85 @@
+{
+  "_comment": "IbisPanel-maintained derivative of the supplied Pterodactyl Node.js Generic Egg by parker@parkervcp.com. See README.md for attribution and safety changes.",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2026-11-12T00:00:00+00:00",
+  "name": "IbisPanel Node.js Generic",
+  "author": "admin@ibispanel.local",
+  "description": "Node.js 24 scripts, bots, and workers. Optional public GitHub import and one-time npm installation; no automatic update by default. Derived from the generic Egg credited to parker@parkervcp.com.",
+  "features": [],
+  "tags": [
+    "nodejs"
+  ],
+  "docker_images": {
+    "Node.js 24.22.2 LTS": "ibispanel/node-generic:24.22.2"
+  },
+  "file_denylist": [],
+  "startup": "/usr/local/bin/ibis-node-launcher",
+  "config": {
+    "files": "{}",
+    "startup": "{\"done\":[\"IbisPanel Node.js process ready\"],\"strip_ansi\":true}",
+    "logs": "{}",
+    "stop": "^SIGTERM"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/sh\nset -eu\n\ncd /mnt/server\nexport HOME=/mnt/server\nexport npm_config_cache=/mnt/server/.npm-cache\n\nrepo=${GIT_ADDRESS:-}\nbranch=${GIT_BRANCH:-}\nmode=${NPM_INSTALL_MODE:-auto}\n\ncase \"$mode\" in\n    auto|ci|install|skip) ;;\n    *) echo 'Invalid npm install mode.' >&2; exit 2 ;;\nesac\n\nif [ -n \"$repo\" ]; then\n    case \"$repo\" in\n        *'..'*|*[!A-Za-z0-9_./:-]*) echo 'Use a public GitHub HTTPS repository URL without credentials.' >&2; exit 2 ;;\n    esac\n    if ! printf '%s' \"$repo\" | grep -Eq '^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(\\.git)?$'; then\n        echo 'Use a public GitHub HTTPS repository URL without credentials.' >&2\n        exit 2\n    fi\n    if [ -n \"$(ls -A .)\" ]; then\n        echo 'Server files already exist; refusing to overwrite them during Git import.' >&2\n        exit 2\n    fi\n    if ! command -v git >/dev/null 2>&1; then\n        apt-get update -qq\n        DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends git ca-certificates\n    fi\n    if [ -n \"$branch\" ]; then\n        case \"$branch\" in\n            -*|*'..'*|*[!A-Za-z0-9_./-]*) echo 'Invalid Git branch.' >&2; exit 2 ;;\n        esac\n        git check-ref-format --branch \"$branch\" >/dev/null 2>&1 || { echo 'Invalid Git branch.' >&2; exit 2; }\n        GIT_TERMINAL_PROMPT=0 git clone --quiet --depth 1 --single-branch --branch \"$branch\" \"$repo\" .\n    else\n        GIT_TERMINAL_PROMPT=0 git clone --quiet --depth 1 \"$repo\" .\n    fi\nelif [ -n \"$branch\" ]; then\n    echo 'A Git branch requires a repository URL.' >&2\n    exit 2\nfi\n\nif [ \"$mode\" != skip ] && [ -f package.json ]; then\n    if [ \"$mode\" = ci ] || { [ \"$mode\" = auto ] && [ -f package-lock.json ]; }; then\n        if [ ! -f package-lock.json ]; then\n            echo 'npm ci requires package-lock.json.' >&2\n            exit 2\n        fi\n        npm ci --no-audit --no-fund\n    else\n        npm install --no-audit --no-fund\n    fi\nfi\n\necho 'IbisPanel Node.js installation complete'\n",
+      "container": "node:24.22.2-bookworm-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c",
+      "entrypoint": "sh"
+    }
+  },
+  "variables": [
+    {
+      "name": "Git repository URL",
+      "description": "Optional public GitHub HTTPS repository to clone during installation. Credential URLs are rejected.",
+      "env_variable": "GIT_ADDRESS",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string|max:255",
+      "field_type": "text"
+    },
+    {
+      "name": "Git branch",
+      "description": "Optional branch for the initial clone. Empty uses the repository default.",
+      "env_variable": "GIT_BRANCH",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string|max:128",
+      "field_type": "text"
+    },
+    {
+      "name": "npm install mode",
+      "description": "auto uses npm ci with package-lock.json, otherwise npm install. skip does neither.",
+      "env_variable": "NPM_INSTALL_MODE",
+      "default_value": "auto",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|in:auto,ci,install,skip",
+      "field_type": "text"
+    },
+    {
+      "name": "Main file",
+      "description": "Relative .js, .cjs, .mjs, .ts, .cts, or .mts entrypoint inside the server directory.",
+      "env_variable": "MAIN_FILE",
+      "default_value": "index.js",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string|max:128",
+      "field_type": "text"
+    },
+    {
+      "name": "Automatic Git update",
+      "description": "0 by default. Set 1 to fast-forward a safe public GitHub checkout before startup; dependencies are not reinstalled.",
+      "env_variable": "AUTO_UPDATE",
+      "default_value": "0",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|boolean",
+      "field_type": "text"
+    }
+  ]
+}

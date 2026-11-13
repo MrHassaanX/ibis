@@ -1,0 +1,9 @@
+# Minecraft content worker
+
+Minecraft content installs use the `redis_minecraft_content` connection and only the `minecraft-content` queue. The worker timeout is 180 seconds; Redis's retry window is 240 seconds. Run a dedicated supervised worker for this connection in production. Keep the worker process and Redis restricted to the panel host and monitor worker exits, failed jobs and storage use.
+
+For local WSL development, explicitly run `./scripts/dev-content-worker.sh` in a separate Ubuntu terminal. It stays in the foreground, handles at most 100 jobs before exiting, and refuses a second instance for the checkout. Restart it manually when you intend to accept new content jobs. `scripts/dev-up.sh` does not start it. Do not add `standard`, `default` or any other queue to its arguments; those queues can contain old notifications and unreviewed jobs.
+
+Before starting this worker, inspect the `minecraft-content` pending, reserved and delayed Redis queues. For one approved new job, `php artisan queue:work redis_minecraft_content --queue=minecraft-content --once --tries=1 --timeout=180` is a bounded alternative. A worker heartbeat is exposed to the managed-install UI while the dedicated worker is looping. Pending items show an unavailable-worker notice when it is absent; records that have not progressed for five minutes show a review-and-retry action. Retry checks the release and server state again and uses a new operation ID. Old serialized jobs without an operation ID cannot perform an install.
+
+If a job fails, inspect the row, Wings files and `failed_jobs` before retrying. The panel never automatically removes an unknown jar or replays the `standard` backlog. Any orphan `.ibis-*.part` requires a manual, file-specific review. The content worker must never run as root or gain direct broad Docker permissions; the panel reaches Wings through its existing authenticated API.

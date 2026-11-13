@@ -1,0 +1,113 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Pterodactyl\Tests\Assertions;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Assert;
+use Pterodactyl\Events\ActivityLogged;
+use Pterodactyl\Models\ActivityLog;
+use Pterodactyl\Models\ActivityLogSubject;
+
+trait AssertsActivityLogged
+{
+    /**
+     * @param  Model|array  $subjects
+     */
+    public function assertActivityFor(string $event, ?Model $actor, ...$subjects): void
+    {
+        $this->assertActivityLogged($event);
+        $this->assertActivityActor($event, $actor);
+        $this->assertActivitySubjects($event, ...$subjects);
+    }
+
+    /**
+     * Asserts that exactly one entry was stored for the event against all of the given
+     * subjects, which is what puts it on that server's or user's activity feed.
+     */
+    public function assertActivityOn(string $event, Model ...$subjects): ActivityLog
+    {
+        $query = ActivityLog::query()->where('event', $event);
+        foreach ($subjects as $subject) {
+            $query->whereHas('subjects', fn (Builder $builder) => $builder->where('subject_type', $subject->getMorphClass())->where('subject_id', $subject->getKey()));
+        }
+
+        $found = $query->get();
+        Assert::assertCount(1, $found, sprintf(
+            'Failed asserting that one "%s" event was logged against %s.',
+            $event,
+            implode(', ', array_map(fn (Model $subject): string => sprintf('%s[%d]', $subject::class, $subject->getKey()), $subjects)),
+        ));
+
+        return $found->sole();
+    }
+
+    /**
+     * Asserts that the given activity log event was stored in the database.
+     */
+    public function assertActivityLogged(string $event): void
+    {
+        Event::assertDispatched(ActivityLogged::class, fn ($e) => $e->is($event));
+    }
+
+    /**
+     * Asserts that a given activity log event was stored with the subjects being
+     * any of the values provided.
+     */
+    public function assertActivitySubjects(string $event, Model|array $subjects): void
+    {
+        if (is_array($subjects)) {
+            Assert::assertLessThanOrEqual(2, count(func_get_args()), 'Invalid call to '.__METHOD__.': cannot provide additional arguments if providing an array.');
+        } else {
+            $subjects = array_slice(func_get_args(), 1);
+        }
+
+        Event::assertDispatched(ActivityLogged::class, function (ActivityLogged $e) use ($event, $subjects) {
+            // Other events the same request logged are skipped, not failed.
+            if (! $e->is($event)) {
+                return false;
+            }
+
+            Assert::assertNotEmpty($e->model->subjects);
+
+            foreach ($subjects as $subject) {
+                $match = $e->model->subjects->first(function (ActivityLogSubject $model) use ($subject) {
+                    return $model->subject_type === $subject->getMorphClass()
+                        && $model->subject_id === $subject->getKey();
+                });
+
+                Assert::assertNotNull(
+                    $match,
+                    sprintf('Failed asserting that event "%s" includes a %s[%d] subject', $event, get_class($subject), $subject->getKey())
+                );
+            }
+
+            return true;
+        });
+    }
+
+    /**
+     * Asserts that the provided event was logged into the activity logs with the provided
+     * actor model associated with it.
+     */
+    public function assertActivityActor(string $event, ?Model $actor = null): void
+    {
+        Event::assertDispatched(ActivityLogged::class, function (ActivityLogged $e) use ($event, $actor) {
+            if (! $e->is($event)) {
+                return false;
+            }
+
+            if (is_null($actor)) {
+                Assert::assertNull($e->actor());
+            } else {
+                Assert::assertNotNull($e->actor());
+                Assert::assertTrue($e->actor()->is($actor));
+            }
+
+            return true;
+        });
+    }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "route": "/",
+    "width": 1440,
+    "theme": "dark",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "route": "/",
+    "width": 390,
+    "theme": "dark",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "route": "/",
+    "width": 1440,
+    "theme": "light",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "route": "/demo",
+    "width": 390,
+    "theme": "dark",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "route": "/docs",
+    "width": 390,
+    "theme": "dark",
+    "overflow": false,
+    "violations": []
+  },
+  {
+    "route": "/brand",
+    "width": 390,
+    "theme": "dark",
+    "overflow": false,
+    "violations": []
+  }
+]

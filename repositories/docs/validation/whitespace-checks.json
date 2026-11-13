@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-02",
+  "scope": "git diff --cached --check over imported additions; upstream bytes intentionally preserved",
+  "repositories": [
+    {
+      "name": "panel",
+      "exitCode": 2,
+      "diagnostics": 23,
+      "examples": [
+        ".github/docker/default.conf:10: trailing whitespace.",
+        "+",
+        ".github/docker/default.conf:73: trailing whitespace.",
+        "+",
+        ".github/docker/default_ssl.conf:1: trailing whitespace.",
+        "+# If using Ubuntu this file should be placed in:",
+        ".github/docker/default_ssl.conf:24: trailing whitespace.",
+        "+"
+      ]
+    },
+    {
+      "name": "wings",
+      "exitCode": 2,
+      "diagnostics": 56,
+      "examples": [
+        ".dockerignore:1: trailing whitespace.",
+        "+# Binaries for programs and plugins",
+        ".dockerignore:2: trailing whitespace.",
+        "+*.exe",
+        ".dockerignore:3: trailing whitespace.",
+        "+*.dll",
+        ".dockerignore:4: trailing whitespace.",
+        "+*.so"
+      ]
+    },
+    {
+      "name": "eggs",
+      "exitCode": 2,
+      "diagnostics": 1397,
+      "examples": [
+        "application-eggs/.github/ISSUE_TEMPLATE/bug-report.yml:82: trailing whitespace.",
+        "+",
+        "application-eggs/.github/ISSUE_TEMPLATE/install-bug-report.yml:82: trailing whitespace.",
+        "+",
+        "application-eggs/.github/workflows/accepted-request.yml:24: trailing whitespace.",
+        "+",
+        "application-eggs/.github/workflows/accepted-request.yml:28: trailing whitespace.",
+        "+"
+      ]
+    }
+  ]
+}

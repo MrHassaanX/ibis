@@ -1,0 +1,62 @@
+{
+  "formatVersion": 1,
+  "recordedDate": "2026-11-02",
+  "repositories": {
+    "panel": { "initialCommit": "e208cdf282c53fd7aff4cd41ab9bad5667c603bf" },
+    "wings": { "initialCommit": "87317e13dbaf17fd1bf517866d3b3c9f4bd4d9e6" },
+    "eggs": { "initialCommit": "00c9aaf3603800f74667f157884c851aaf316a68" },
+    "installer": { "initialCommit": "e4abffcde93686f90e3cbf9a1e9a488cda95822d" },
+    "migrator": { "initialCommit": "037f3beb53da6d2853083a5f38ed216f3b3c7777" },
+    "docs": { "initialCommit": "79c6060c8e7059ae5401efad6393d77006bf50ca" }
+  },
+  "sources": [
+    {
+      "repository": "panel",
+      "url": "https://github.com/pterodactyl/panel.git",
+      "ref": "refs/tags/v2.0.0-beta.2",
+      "tagObject": "dc72a0286f8e12883f60cc375c5b97b59d2617fe",
+      "commit": "ea742d332f5861a81e502857446b8df9cb9f0254",
+      "tree": "922428e2d550304374601b22e28cb694b6fc70a5",
+      "prefix": "",
+      "renames": {},
+      "license": "LICENSE.md"
+    },
+    {
+      "repository": "wings",
+      "url": "https://github.com/pterodactyl/wings.git",
+      "ref": "refs/tags/v1.13.3",
+      "commit": "6987d5e6f0612133e031255a99655e822d30579a",
+      "tree": "b60b52531dda15b4bd3a3ce54d5ce08640687572",
+      "prefix": "",
+      "renames": { "LICENSE": "LICENSE.upstream" },
+      "license": "LICENSE.upstream"
+    },
+    {
+      "repository": "eggs",
+      "url": "https://github.com/pterodactyl/game-eggs.git",
+      "ref": "HEAD (snapshot, not a release)",
+      "commit": "be654a201bf3b90446569167d4864edec1b33009",
+      "tree": "c72c7e766ef2c7ba195eccfa6880c1e2d47a685a",
+      "prefix": "game-eggs",
+      "license": "game-eggs/LICENSE"
+    },
+    {
+      "repository": "eggs",
+      "url": "https://github.com/pterodactyl/application-eggs.git",
+      "ref": "HEAD (snapshot, not a release)",
+      "commit": "122086603fce7b6582ad8cce7982c4367e2ea572",
+      "tree": "aa6c8155fcf925c0ca45366acae6f26313c20f77",
+      "prefix": "application-eggs",
+      "license": "application-eggs/LICENSE"
+    },
+    {
+      "repository": "eggs",
+      "url": "https://github.com/pterodactyl/generic-eggs.git",
+      "ref": "HEAD (snapshot, not a release)",
+      "commit": "6e8d2546e493937ede885a17d64b7c4a368cacec",
+      "tree": "e86e204ce23aa422768752db0dfab3c9e6c681e6",
+      "prefix": "generic-eggs",
+      "license": "generic-eggs/LICENSE"
+    }
+  ]
+}

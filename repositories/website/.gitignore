@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+test-results/
+playwright-report/
+qa/*.png
+qa/reference*
+public/reference.mp4
+*.tsbuildinfo
+next-env.d.ts

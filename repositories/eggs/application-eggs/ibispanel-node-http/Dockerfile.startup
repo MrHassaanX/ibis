@@ -1,0 +1,5 @@
+# Node 24 image with an administrator-configured Wings STARTUP command.
+# The existing fixed-entrypoint image remains available for the original fixture.
+FROM node:24.22.2-bookworm-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c
+WORKDIR /home/container
+ENTRYPOINT ["/bin/sh", "-c", "exec /bin/sh -c \"$STARTUP\""]

@@ -1,0 +1,1199 @@
+/* IbisPanel identity over the classic panel. Layout, component recipes and state colors remain upstream. */
+:root {
+    --brand-logo: url('/brand/ibis-wordmark.png');
+    --ibis-logo-plaque: #031426;
+    --radius-sm: calc(8px * var(--ibis-roundness, 0.35));
+    --radius: calc(24px * var(--ibis-roundness, 0.35));
+    --radius-md: calc(16px * var(--ibis-roundness, 0.35));
+    --radius-lg: calc(28px * var(--ibis-roundness, 0.35));
+    --radius-xl: calc(32px * var(--ibis-roundness, 0.35));
+}
+
+.dark {
+    --theme-color: #061326;
+    --background: #061326;
+    --card: #10243d;
+    --terminal-background: #061a2b;
+    --popover: #193450;
+    --foreground: #edf6fd;
+    --muted-foreground: #a8bdd2;
+    --primary: #00e5ec;
+    --primary-foreground: #031426;
+    --accent: #00e5ec;
+    --accent-foreground: #031426;
+    --ring: #00e5ec;
+    --border: #294663;
+    --ibis-edge-glow: rgb(0 229 236 / 0.16);
+    --ibis-surface-shadow: 0 12px 30px rgb(0 5 17 / 0.38);
+}
+
+.light {
+    --theme-color: #eff6f8;
+    --background: #eff6f8;
+    --foreground: #112c3b;
+    --card: #ffffff;
+    --card-foreground: #112c3b;
+    --popover: #e3f1f3;
+    --popover-foreground: #112c3b;
+    --muted: #e8f0f2;
+    --muted-foreground: #466372;
+    --border: #b8cdd3;
+    --secondary: #deebee;
+    --secondary-foreground: #112c3b;
+    --terminal-background: #0b1928;
+    --terminal-foreground: #e1ebf5;
+    --terminal-ansi-black: #8ca5b7;
+    --ibis-edge-glow: rgb(0 105 134 / 0.12);
+    --ibis-surface-shadow: 0 10px 24px rgb(10 45 66 / 0.12);
+}
+
+.dark {
+    --accent: var(--ibis-accent, #00e5ec);
+    --ring: var(--ibis-accent, #00e5ec);
+    --primary: var(--ibis-accent, #00e5ec);
+}
+.light {
+    --primary: color-mix(in srgb, var(--ibis-accent, #00e5ec) 45%, #002837);
+    --accent: var(--primary);
+    --accent-foreground: #fff;
+    --ring: var(--primary);
+    --primary-foreground: #fff;
+}
+
+.ibis-auth-logo-light {
+    display: none;
+}
+.light .ibis-auth-logo-dark {
+    display: none;
+}
+.light .ibis-auth-logo-light {
+    display: block;
+}
+
+body:has(.ibis-auth-mark) {
+    background-image: linear-gradient(rgb(3 20 38 / 0.72), rgb(3 20 38 / 0.84)), var(--ibis-login-background);
+    background-size: cover;
+    background-position: center;
+}
+.light body:has(.ibis-auth-mark) {
+    background-image: linear-gradient(rgb(239 246 248 / 0.82), rgb(239 246 248 / 0.9)), var(--ibis-login-background);
+}
+
+body[data-ibis-glass='on'] .ibis-server-row {
+    background: color-mix(in srgb, var(--card) 86%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, white 20%);
+    backdrop-filter: blur(9px);
+}
+
+.ibis-server-row[data-appearance-layout='premium'],
+.ibis-server-row[data-appearance-layout='banner'] {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.08);
+    transition:
+        transform 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+.ibis-server-status {
+    display: none;
+}
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-status,
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-status {
+    display: inline-flex;
+    margin-top: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted-foreground);
+}
+.ibis-server-row[data-status='success'] .ibis-server-status {
+    color: var(--success);
+}
+.ibis-server-row[data-status='danger'] .ibis-server-status {
+    color: var(--destructive);
+}
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-title,
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-title {
+    font-size: 1.1rem;
+    font-weight: 650;
+}
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-description,
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-description {
+    margin-top: 0.25rem;
+}
+.ibis-server-row[data-appearance-layout='premium']:hover,
+.ibis-server-row[data-appearance-layout='banner']:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: 0 18px 34px rgb(0 0 0 / 0.15);
+}
+.ibis-server-row[data-appearance-layout='banner'] {
+    padding: 0 1.25rem 1.25rem;
+}
+.ibis-server-banner {
+    position: relative;
+    height: clamp(4rem, 7vw, 6rem);
+    overflow: hidden;
+    background: linear-gradient(125deg, #0d2940, #164764 55%, #0b253b);
+    border-radius: var(--radius-md);
+}
+.ibis-server-banner[data-layout='banner'] {
+    height: clamp(6rem, 12vw, 9rem);
+    margin: 0 -1.25rem;
+    border-radius: 0;
+}
+.ibis-server-banner[data-layout='compact'] {
+    height: 3.5rem;
+}
+.ibis-server-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.ibis-server-banner::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(90deg, rgb(3 20 38 / 0.25), transparent 75%);
+}
+.ibis-server-grid[data-layout='banner'],
+.ibis-server-grid[data-layout='premium'] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+.ibis-server-grid[data-layout='compact'] {
+    display: grid;
+    gap: 0.75rem;
+}
+.ibis-server-row[data-appearance-layout='banner'],
+.ibis-server-row[data-appearance-layout='premium'] {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 236px;
+    padding: 0;
+    background: var(--card);
+    box-shadow:
+        var(--ibis-surface-shadow),
+        0 0 0 1px var(--ibis-edge-glow);
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-banner,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-banner {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    margin: 0;
+    border-radius: inherit;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-banner::after,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-banner::after {
+    background: linear-gradient(180deg, rgb(2 10 24 / 0.13), rgb(2 10 24 / 0.78) 60%, rgb(2 10 24 / 0.95));
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-body,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    justify-content: flex-end;
+    gap: 0.65rem;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-icon,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-icon {
+    display: none;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-identity,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-identity {
+    align-items: flex-start;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-name,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-name {
+    width: 100%;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-status,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin: 0;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: rgb(12 35 43 / 0.85);
+    color: #b6f4da;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+}
+.ibis-server-row[data-status='danger'] .ibis-server-status {
+    background: rgb(65 20 34 / 0.88);
+    color: #ffc4d0;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-name p,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-name p,
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-address p,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-address p,
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-metrics,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-metrics {
+    color: #f0f8ff;
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.8);
+}
+.ibis-server-card-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    font-size: 0.72rem;
+}
+.ibis-server-card-metrics [data-part='limit'] {
+    display: none;
+}
+.ibis-server-card-metrics [data-part='value'] {
+    margin-left: 0.3rem;
+    font-size: 0.72rem;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-metrics [data-part='label'],
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-metrics [data-part='label'],
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-metrics [data-part='value'],
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-metrics [data-part='value'],
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-metrics [data-part='glyph'],
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-metrics [data-part='glyph'] {
+    color: #f0f8ff;
+}
+.ibis-server-row[data-appearance-layout='banner'] [data-part='status'],
+.ibis-server-row[data-appearance-layout='premium'] [data-part='status'] {
+    display: none;
+}
+.ibis-server-grid[data-layout='compact'] .ibis-server-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.5rem;
+}
+.ibis-server-grid[data-layout='compact'] .ibis-server-card-body {
+    flex: 1;
+    min-width: 0;
+}
+.ibis-server-grid[data-layout='compact'] .ibis-server-card-identity {
+    flex: 1;
+    min-width: 12rem;
+}
+@media (max-width: 900px) {
+    .ibis-server-grid[data-layout='banner'],
+    .ibis-server-grid[data-layout='premium'] {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+.ibis-appearance-preview[data-preview-mode='dark'] {
+    background: #0d2940;
+    color: #edf7fb;
+}
+.ibis-appearance-preview[data-preview-mode='legacy'],
+.ibis-appearance-preview[data-preview-mode='system'] {
+    --background: #031426;
+    --card: #0d2940;
+    --popover: #17364c;
+    --foreground: #edf7fb;
+    --muted-foreground: #a0b8c8;
+    --border: #315064;
+    --primary: var(--preview-accent);
+    background: #0d2940;
+    color: #edf7fb;
+}
+.ibis-appearance-preview[data-preview-mode='oled'] {
+    --background: #080b10;
+    --card: #121922;
+    --popover: #19232e;
+    --foreground: #eef5f8;
+    --muted-foreground: #a8bac5;
+    --border: #2e3b47;
+    --primary: var(--preview-accent);
+    background: #080b10;
+    color: #eef5f8;
+}
+.ibis-appearance-preview[data-preview-mode='light'] {
+    --background: #eff6f8;
+    --card: #fff;
+    --popover: #e3f1f3;
+    --foreground: #112c3b;
+    --muted-foreground: #466372;
+    --border: #b8cdd3;
+    --primary: color-mix(in srgb, var(--preview-accent) 45%, #002837);
+    background: #fff;
+    color: #112c3b;
+}
+.ibis-appearance-preview {
+    background: #0d2940;
+    color: #edf7fb;
+}
+.ibis-preview-shell {
+    display: flex;
+    min-height: 330px;
+}
+.ibis-preview-sidebar {
+    display: flex;
+    flex: 0 0 130px;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem 0.7rem;
+    border-right: 1px solid currentColor;
+    font-size: 0.72rem;
+    background: var(--card);
+}
+.ibis-preview-sidebar img,
+.ibis-preview-header img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+.ibis-preview-sidebar strong,
+.ibis-preview-header strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ibis-preview-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid currentColor;
+}
+.ibis-preview-card {
+    display: grid;
+    gap: 0.55rem;
+    min-height: 95px;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: inherit;
+    background-color: var(--card);
+    background-size: cover;
+    background-position: center;
+}
+.ibis-preview-card[data-card-layout='compact'] {
+    min-height: 68px;
+    grid-template-columns: 1fr auto;
+}
+.ibis-preview-card[data-card-layout='banner'] {
+    min-height: 150px;
+    align-content: end;
+    background-color: #203540;
+    background-blend-mode: multiply;
+}
+.ibis-preview-card span {
+    color: var(--preview-accent);
+}
+.ibis-preview-card small {
+    opacity: 0.75;
+}
+.ibis-preview-terminal {
+    padding: 1rem;
+    min-height: 100px;
+    border-radius: inherit;
+    background: #050c12;
+    color: #d6f7ec;
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+}
+.ibis-preview-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+.ibis-preview-metrics span {
+    padding: 0.7rem;
+    border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+    border-radius: inherit;
+}
+.ibis-preview-card label {
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+}
+.ibis-preview-card input {
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid currentColor;
+    border-radius: inherit;
+    background: transparent;
+}
+.ibis-preview-button {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.5rem 1.2rem;
+    border-radius: inherit;
+    background: var(--preview-accent);
+    color: #031426 !important;
+}
+.ibis-appearance-preview[data-preview-glass='on'] .ibis-preview-card {
+    backdrop-filter: blur(8px);
+    background-color: color-mix(in srgb, var(--card) 86%, transparent);
+}
+.ibis-appearance-preview[data-preview-viewport='tablet'] .ibis-preview-sidebar {
+    flex-basis: 100px;
+}
+.ibis-appearance-preview[data-preview-viewport='mobile'] .ibis-preview-shell {
+    display: block;
+}
+.ibis-appearance-preview[data-preview-viewport='mobile'] .ibis-preview-sidebar {
+    display: none;
+}
+.ibis-appearance-preview[data-preview-viewport='mobile'] .ibis-preview-metrics {
+    grid-template-columns: 1fr;
+}
+.ibis-editor-layout {
+    min-width: 0;
+}
+.ibis-editor-sections {
+    padding: 0.35rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--card) 75%, var(--background));
+    box-shadow: var(--ibis-surface-shadow);
+}
+.ibis-editor-tab {
+    flex: 1 1 auto;
+    padding: 0.55rem 0.65rem;
+    border-color: transparent;
+    font-size: 0.75rem;
+}
+.ibis-editor-tab[aria-pressed='true'] {
+    background: color-mix(in srgb, var(--primary) 22%, var(--card));
+    color: var(--foreground);
+    box-shadow:
+        inset 0 0 0 1px var(--primary),
+        0 0 14px var(--ibis-edge-glow);
+}
+.ibis-editor-controls,
+.ibis-editor-layout > section,
+.ibis-editor-layout > fieldset > section {
+    box-shadow:
+        var(--ibis-surface-shadow),
+        0 0 0 1px var(--ibis-edge-glow);
+}
+.ibis-editor-modes {
+    min-width: 0;
+}
+.ibis-mode-option {
+    min-width: 0;
+    padding: 0.45rem;
+    background: color-mix(in srgb, var(--card) 85%, var(--background));
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 150ms ease;
+}
+.ibis-mode-option:hover,
+.ibis-mode-option:focus-visible {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+.ibis-mode-option[aria-pressed='true'] {
+    box-shadow:
+        0 0 0 1px var(--primary),
+        0 0 16px var(--ibis-edge-glow);
+}
+.ibis-mode-thumbnail {
+    position: relative;
+    display: block;
+    height: 4.5rem;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--border) 78%, var(--primary));
+    border-radius: var(--radius-md);
+    background: linear-gradient(160deg, #173f7b, #07162f 70%);
+}
+.ibis-mode-thumbnail::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(135deg, transparent 45%, rgb(72 142 247 / 0.32) 46%, transparent 80%);
+    clip-path: polygon(0 100%, 34% 44%, 55% 82%, 77% 20%, 100% 100%);
+}
+.ibis-mode-option[data-mode='oled'] .ibis-mode-thumbnail {
+    background: linear-gradient(170deg, #111, #000);
+}
+.ibis-mode-option[data-mode='oled'] .ibis-mode-thumbnail::before {
+    opacity: 0.22;
+}
+.ibis-mode-option[data-mode='light'] .ibis-mode-thumbnail {
+    background: linear-gradient(160deg, #fff, #dbeafb);
+}
+.ibis-mode-option[data-mode='legacy'] .ibis-mode-thumbnail {
+    background: linear-gradient(160deg, #084a77, #031426);
+}
+.ibis-mode-option[data-mode='legacy'] .ibis-mode-thumbnail::before {
+    filter: hue-rotate(25deg) saturate(1.5);
+}
+.ibis-editor-segmented button[aria-pressed='true'] {
+    box-shadow: 0 0 14px var(--ibis-edge-glow);
+}
+@media (min-width: 1280px) {
+    .ibis-editor-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+        gap: 1.25rem;
+    }
+}
+.ibis-app-with-sidebar {
+    display: flex;
+    width: min(100%, 1600px);
+    min-height: calc(100dvh - 56px);
+    margin-inline: auto;
+    background: radial-gradient(
+        ellipse at 45% -15%,
+        color-mix(in srgb, var(--primary) 5%, transparent),
+        transparent 55%
+    );
+}
+.ibis-app-topbar {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--card) 70%, var(--background));
+    box-shadow: 0 7px 24px rgb(0 0 0 / 0.08);
+}
+.ibis-search-label {
+    display: none;
+}
+.ibis-header-search-wrap {
+    padding-inline: 1rem;
+}
+.ibis-header-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: min(100%, 320px);
+    min-height: 36px;
+    padding-inline: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--popover) 62%, var(--background));
+    color: var(--muted-foreground);
+    text-align: left;
+}
+.ibis-header-search:hover,
+.ibis-header-search:focus-visible {
+    border-color: var(--primary);
+    color: var(--foreground);
+}
+.ibis-header-search .ibis-search-label {
+    display: inline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+}
+@media (min-width: 1024px) {
+    .ibis-app-frame {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr);
+        grid-template-rows: 56px minmax(0, 1fr);
+        width: min(100%, 1600px);
+        min-height: 100dvh;
+        margin-inline: auto;
+    }
+    .ibis-app-frame:has(.ibis-app-sidebar.is-collapsed) {
+        grid-template-columns: 64px minmax(0, 1fr);
+    }
+    .ibis-app-frame > .ibis-app-topbar {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .ibis-app-frame > .ibis-app-with-sidebar {
+        display: contents;
+    }
+    .ibis-app-frame .ibis-app-sidebar {
+        grid-column: 1;
+        grid-row: 1 / 3;
+    }
+    .ibis-app-frame .ibis-app-with-sidebar > div:last-child {
+        grid-column: 2;
+        grid-row: 2;
+        min-width: 0;
+        background: radial-gradient(
+            ellipse at 50% -10%,
+            color-mix(in srgb, var(--primary) 6%, transparent),
+            transparent 58%
+        );
+    }
+    .ibis-admin-frame > .ibis-app-topbar > div {
+        padding-left: 240px;
+    }
+    .ibis-admin-frame .ibis-admin-sidebar {
+        width: 240px;
+        min-height: 100dvh;
+        margin-top: -56px;
+        position: relative;
+        z-index: 2;
+    }
+}
+.ibis-app-sidebar {
+    flex: 0 0 240px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-right: 1px solid var(--border);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--card) 70%, var(--background)), var(--background) 55%);
+}
+.ibis-app-sidebar > div:first-child {
+    min-height: 56px;
+    border-bottom: 1px solid var(--border);
+}
+.ibis-sidebar-scroll {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+}
+.ibis-side-group + .ibis-side-group {
+    margin-top: 0.7rem;
+}
+.ibis-side-heading {
+    padding: 0.65rem 0.75rem 0.4rem;
+    color: color-mix(in srgb, var(--primary) 50%, var(--muted-foreground));
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+.ibis-side-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 38px;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    color: var(--muted-foreground);
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+.ibis-side-link:hover,
+.ibis-side-link[data-status='active'] {
+    background: color-mix(in srgb, var(--popover) 86%, var(--primary));
+    color: var(--foreground);
+}
+.ibis-side-link[data-status='active'] {
+    box-shadow: inset 3px 0 var(--ibis-accent);
+    border: 1px solid color-mix(in srgb, var(--primary) 38%, transparent);
+    text-shadow: 0 0 12px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+.ibis-side-link:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+}
+.ibis-console-identity,
+.ibis-console-panel {
+    box-shadow:
+        var(--ibis-surface-shadow),
+        0 0 0 1px var(--ibis-edge-glow);
+}
+.ibis-console-identity {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(
+        110deg,
+        color-mix(in srgb, var(--card) 92%, var(--primary)),
+        var(--card) 56%,
+        color-mix(in srgb, var(--card) 95%, var(--background))
+    );
+    border-color: color-mix(in srgb, var(--border) 76%, var(--primary));
+}
+.ibis-console-identity:has(.ibis-console-identity-banner) {
+    background: #071a2c;
+    color: #f1f8ff;
+}
+.ibis-console-identity:has(.ibis-console-identity-banner) h1 {
+    color: #fff;
+    text-shadow: 0 1px 5px rgb(0 0 0 / 0.8);
+}
+.ibis-console-identity:has(.ibis-console-identity-banner) .text-muted-foreground {
+    color: #d6e5f0;
+    text-shadow: 0 1px 4px rgb(0 0 0 / 0.9);
+}
+.ibis-console-identity-banner {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
+.ibis-console-identity:has(.ibis-console-identity-banner)::after {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    content: '';
+    background: linear-gradient(90deg, rgb(3 17 33 / 0.92) 0%, rgb(3 17 33 / 0.7) 42%, rgb(3 17 33 / 0.1) 100%);
+}
+.ibis-console-identity > :not(.ibis-console-identity-banner) {
+    position: relative;
+    z-index: 1;
+}
+.ibis-workload-icon {
+    overflow: hidden;
+    border-radius: 11px;
+}
+.ibis-workload-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.ibis-workload-card-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.ibis-server-card-icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    min-width: 3.75rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 11px;
+    background: transparent;
+    padding: 0;
+}
+.ibis-server-row[data-appearance-layout='banner'] .ibis-server-card-icon,
+.ibis-server-row[data-appearance-layout='premium'] .ibis-server-card-icon {
+    display: flex;
+}
+.light .ibis-console-identity:has(.ibis-console-identity-banner) {
+    border-color: #8db8c4;
+    background: #e5f2f5;
+}
+.light .ibis-console-identity:has(.ibis-console-identity-banner)::after {
+    background: linear-gradient(
+        90deg,
+        rgb(239 247 249 / 0.96) 0%,
+        rgb(239 247 249 / 0.79) 42%,
+        rgb(239 247 249 / 0.05) 100%
+    );
+}
+.light .ibis-console-identity:has(.ibis-console-identity-banner) h1 {
+    color: #102b3c;
+    text-shadow: none;
+}
+.light .ibis-console-identity:has(.ibis-console-identity-banner) .text-muted-foreground {
+    color: #315365;
+    text-shadow: none;
+}
+.light .ibis-console-identity-banner {
+    opacity: 1;
+}
+.ibis-console-status[data-state='running'] {
+    border-color: color-mix(in srgb, var(--success) 50%, transparent);
+    background: color-mix(in srgb, var(--success) 15%, transparent);
+    color: var(--success);
+}
+.ibis-console-status:not([data-state='running']) {
+    border-color: var(--border);
+    background: color-mix(in srgb, var(--background) 45%, transparent);
+    color: var(--muted-foreground);
+}
+.ibis-console-metrics > div {
+    --ibis-metric-color: var(--primary);
+    min-height: 132px;
+    border: 1px solid color-mix(in srgb, var(--ibis-metric-color) 38%, var(--border));
+    border-radius: var(--radius-lg);
+    background: linear-gradient(145deg, color-mix(in srgb, var(--card) 92%, var(--primary)), var(--card) 70%);
+    box-shadow:
+        var(--ibis-surface-shadow),
+        0 0 0 1px var(--ibis-edge-glow);
+}
+.ibis-console-metrics > div:nth-child(2) {
+    --ibis-metric-color: #a85cf0;
+}
+.ibis-console-metrics > div:nth-child(3) {
+    --ibis-metric-color: #16d7b5;
+}
+.ibis-console-metrics > div:nth-child(4) {
+    --ibis-metric-color: #4d87ff;
+}
+.ibis-console-metrics [data-part='value'] {
+    font-variant-numeric: tabular-nums;
+}
+.ibis-stat-trend {
+    width: 100%;
+    height: 29px;
+    margin-top: 0.2rem;
+    color: var(--ibis-metric-color);
+}
+.ibis-sparkline {
+    display: block;
+    width: 100%;
+    height: 28px;
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--ibis-metric-color) 42%, transparent));
+}
+.ibis-sparkline-empty {
+    display: block;
+    padding-top: 0.4rem;
+    color: var(--muted-foreground);
+    font-size: 0.68rem;
+    font-weight: 400;
+}
+.ibis-console-metrics > div > div:nth-child(2) {
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, var(--border));
+    background: color-mix(in srgb, var(--popover) 62%, var(--background));
+}
+.ibis-network-stat [data-part='value'] {
+    height: auto;
+    overflow: visible;
+    white-space: normal;
+    line-height: 1.3;
+}
+.ibis-network-values {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+.ibis-console-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: color-mix(in srgb, var(--popover) 45%, var(--card));
+}
+.ibis-console-filter,
+.ibis-console-tool {
+    border: 1px solid color-mix(in srgb, var(--border) 78%, var(--primary));
+    background: color-mix(in srgb, var(--background) 50%, transparent);
+    color: var(--muted-foreground);
+    transition:
+        border-color 120ms ease,
+        color 120ms ease,
+        background 120ms ease;
+}
+.ibis-console-filter:hover,
+.ibis-console-tool:hover,
+.ibis-console-filter[aria-pressed='true'] {
+    border-color: color-mix(in srgb, var(--primary) 60%, var(--border));
+    background: color-mix(in srgb, var(--primary) 13%, var(--card));
+    color: var(--foreground);
+}
+.ibis-console-filter:focus-visible,
+.ibis-console-tool:focus-visible,
+.ibis-console-send:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+}
+.ibis-console-tool {
+    display: inline-flex;
+    width: 1.9rem;
+    height: 1.9rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.35rem;
+}
+.ibis-console-tool:disabled {
+    opacity: 0.45;
+}
+.ibis-console-command {
+    box-shadow: inset 0 1px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.ibis-console-terminal:fullscreen {
+    height: 100dvh;
+    background: var(--card);
+}
+.ibis-console-terminal:fullscreen .caret-transparent {
+    height: auto;
+    min-height: 0;
+    flex: 1;
+}
+.ibis-console-connection {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--success) 12%, transparent);
+    color: var(--success);
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+.ibis-console-connection > span {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: currentColor;
+}
+.ibis-console-connection[data-tone='neutral'] {
+    background: var(--muted);
+    color: var(--muted-foreground);
+}
+.ibis-console-connection[data-tone='warning'] {
+    background: color-mix(in srgb, var(--warning) 14%, transparent);
+    color: var(--warning);
+}
+.ibis-console-connection[data-tone='danger'] {
+    background: color-mix(in srgb, var(--destructive) 14%, transparent);
+    color: var(--destructive);
+}
+.ibis-server-info {
+    min-width: 0;
+    box-shadow:
+        var(--ibis-surface-shadow),
+        0 0 0 1px var(--ibis-edge-glow);
+}
+.ibis-server-info dl {
+    padding: 0.35rem 1rem;
+}
+.ibis-server-info dl > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.4rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+}
+.ibis-server-info dl > div:last-child {
+    border-bottom: 0;
+}
+.ibis-server-info dt {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+}
+.ibis-server-info dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+.light .ibis-console-panel input.bg-terminal {
+    color: var(--terminal-foreground);
+}
+.light .ibis-console-panel input.bg-terminal::placeholder {
+    color: #9ab1c5;
+}
+.ibis-console-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+.ibis-console-graphs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.ibis-console-graphs > div {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: 0 8px 22px rgb(0 0 0 / 0.1);
+}
+@media (max-width: 699px) {
+    .ibis-console-graphs {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+@media (min-width: 1200px) {
+    .ibis-console-body {
+        grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+    }
+}
+@media (min-width: 1024px) {
+    .ibis-app-sidebar.is-collapsed {
+        flex-basis: 64px;
+    }
+    .ibis-app-sidebar.is-collapsed > div:first-child {
+        flex-direction: column;
+        padding-inline: 0;
+    }
+    .ibis-app-sidebar.is-collapsed .ibis-sidebar-brand-name {
+        display: none;
+    }
+    .ibis-app-sidebar.is-collapsed .ibis-side-text,
+    .ibis-app-sidebar.is-collapsed .ibis-side-heading {
+        display: none;
+    }
+    .ibis-app-sidebar.is-collapsed .ibis-side-link {
+        justify-content: center;
+    }
+    .ibis-admin-sidebar {
+        border-right: 1px solid var(--border);
+        background: linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--card) 70%, var(--background)),
+            var(--background) 55%
+        );
+    }
+}
+.ibis-admin-brand {
+    min-height: 56px;
+    border-bottom: 1px solid var(--border);
+}
+.ibis-admin-brand-light {
+    display: none;
+}
+.light .ibis-admin-brand-dark {
+    display: none;
+}
+.light .ibis-admin-brand-light {
+    display: block;
+}
+.ibis-admin-sidebar a[data-status='active'] {
+    box-shadow:
+        inset 3px 0 var(--ibis-accent),
+        0 0 16px var(--ibis-edge-glow);
+    font-weight: 600;
+}
+.ibis-admin-shell {
+    max-width: 1600px;
+}
+.ibis-admin-sidebar a:focus-visible,
+.ibis-app-sidebar a:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+}
+@media (max-width: 1023px) {
+    .ibis-sidebar-scrim {
+        position: fixed;
+        z-index: 39;
+        inset: 56px 0 0;
+        background: rgb(0 0 0 / 0.5);
+    }
+    .ibis-app-sidebar {
+        position: fixed;
+        z-index: 40;
+        inset: 56px auto 0 0;
+        width: min(300px, 86vw);
+        overflow-y: auto;
+        box-shadow: 10px 0 30px rgb(0 0 0 / 0.25);
+        transform: translateX(-105%);
+        transition: transform 150ms ease;
+    }
+    .ibis-app-sidebar.is-open {
+        transform: translateX(0);
+    }
+    .ibis-app-sidebar.is-collapsed {
+        flex-basis: 240px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ibis-app-sidebar {
+        transition: none;
+    }
+}
+@media (max-width: 600px) {
+    .ibis-console-metrics.grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ibis-console-metrics > div {
+        min-width: 0;
+        min-height: 104px;
+        padding: 0.75rem;
+    }
+    .ibis-console-metrics [data-part='value'] {
+        font-size: 1rem;
+    }
+    .ibis-preview-sidebar {
+        flex-basis: 72px;
+    }
+    .ibis-preview-sidebar strong {
+        display: none;
+    }
+}
+@media (max-width: 359px) {
+    .ibis-console-metrics.grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+.ibis-appearance-preview span[style*='background'] {
+    color: #031426;
+}
+.ibis-appearance-banner {
+    background-image: linear-gradient(120deg, #0c2940, #23566d);
+}
+@media (max-width: 639px) {
+    .ibis-server-row[data-appearance-layout='banner'] {
+        padding-bottom: 1rem;
+    }
+    .ibis-server-banner {
+        height: 6rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ibis-server-row {
+        transition: none !important;
+    }
+    .ibis-server-row:hover {
+        transform: none !important;
+    }
+}
+
+/* The supplied wordmark has light lettering; give it a deliberate navy plaque in light themes. */
+.light #logo img,
+.light .ibis-auth-mark {
+    background: var(--ibis-logo-plaque);
+    border-radius: var(--radius-sm);
+    padding: 0.125rem 0.25rem;
+}
+
+/* Apply the OLED palette after the classic dark tokens so it takes precedence. */
+html.dark[data-ibis-mode='oled'] {
+    --theme-color: #000;
+    --background: #000;
+    --card: #080808;
+    --popover: #111;
+    --muted: #141414;
+    --secondary: #171717;
+    --border: #252525;
+    --foreground: #f5f5f5;
+    --muted-foreground: #a3a3a3;
+    --terminal-background: #050505;
+    --terminal-foreground: #ebebeb;
+    --ibis-edge-glow: rgb(0 229 236 / 0.07);
+    --ibis-surface-shadow: 0 9px 26px rgb(0 0 0 / 0.45);
+}
+html.dark[data-ibis-mode='oled'] body,
+html.dark[data-ibis-mode='oled'] .ibis-app-with-sidebar,
+html.dark[data-ibis-mode='oled'] .ibis-app-frame .ibis-app-with-sidebar > div:last-child {
+    background: #000;
+}
+html.dark[data-ibis-mode='oled'] .ibis-app-topbar,
+html.dark[data-ibis-mode='oled'] .ibis-app-sidebar,
+html.dark[data-ibis-mode='oled'] .ibis-admin-sidebar {
+    background: #000;
+    box-shadow: none;
+}
+html.dark[data-ibis-mode='oled'] .ibis-console-identity,
+html.dark[data-ibis-mode='oled'] .ibis-console-metrics > div,
+html.dark[data-ibis-mode='oled'] .ibis-console-graphs > div {
+    background: #080808;
+    border-color: #252525;
+    box-shadow: var(--ibis-surface-shadow);
+}
+html.dark[data-ibis-mode='oled'] .ibis-console-title {
+    background: #111;
+}
+html.dark[data-ibis-mode='oled'] .ibis-console-identity-banner {
+    opacity: 0.77;
+}
+html.dark[data-ibis-mode='oled'] .ibis-console-identity:has(.ibis-console-identity-banner)::after {
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.94) 0%, rgb(0 0 0 / 0.65) 45%, rgb(0 0 0 / 0.08) 100%);
+}
+html.dark[data-ibis-mode='oled'] .ibis-side-link:hover,
+html.dark[data-ibis-mode='oled'] .ibis-side-link[data-status='active'] {
+    background: #111;
+}
+html.dark[data-ibis-mode='oled'] body:has(.ibis-auth-mark) {
+    background-image: linear-gradient(#000e, #000f), var(--ibis-login-background);
+}

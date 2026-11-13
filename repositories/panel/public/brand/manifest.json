@@ -1,0 +1,11 @@
+{
+    "name": "IbisPanel",
+    "short_name": "IbisPanel",
+    "icons": [
+        { "src": "/brand/ibis-icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/brand/ibis-icon-512.png", "sizes": "512x512", "type": "image/png" }
+    ],
+    "theme_color": "#031426",
+    "background_color": "#031426",
+    "display": "standalone"
+}

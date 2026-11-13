@@ -1,0 +1,7 @@
+This repository contains source snapshots of official Pterodactyl Egg collections.
+Game and application Eggs: Copyright (c) 2024 Pterodactyl team and contributors.
+Generic Eggs: Copyright (c) 2018 Michael Parker and Contributors.
+Full inherited notices and MIT licenses remain in each source subtree.
+Individual author fields, scripts and additional notices remain unchanged.
+The root IbisPanel license covers IbisPanel additions, not replacement authorship.
+Container images and downloaded workload software retain their own licenses.

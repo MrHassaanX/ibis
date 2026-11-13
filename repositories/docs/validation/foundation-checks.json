@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-02",
+  "panel": {
+    "php": "^8.3",
+    "platformPhp": "8.3.0",
+    "laravel": "^13.0",
+    "node": ">=22.12",
+    "npmLockVersion": 3,
+    "composerLockedPackages": 167,
+    "npmLockedPackages": 540
+  },
+  "wings": {
+    "go": "1.24.0",
+    "toolchain": "go1.24.1",
+    "validation": "go.mod inspected; dependency resolution/build not run"
+  },
+  "eggs": [
+    {
+      "collection": "game-eggs",
+      "eggs": 254,
+      "formats": {
+        "PTDL_v2": 254
+      },
+      "unsupportedFormats": []
+    },
+    {
+      "collection": "application-eggs",
+      "eggs": 55,
+      "formats": {
+        "PTDL_v2": 55
+      },
+      "unsupportedFormats": []
+    },
+    {
+      "collection": "generic-eggs",
+      "eggs": 12,
+      "formats": {
+        "PTDL_v2": 12
+      },
+      "unsupportedFormats": []
+    }
+  ],
+  "errors": [
+    "npm manifest/lock root mismatch: engines"
+  ],
+  "limits": "Static format and lockfile metadata checks only. Actual Panel Egg validation and workload installation have not run."
+}

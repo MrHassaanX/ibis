@@ -1,0 +1,61 @@
+/* Final component refinements shared across responsive breakpoints. */
+.console-lines time {
+  color: #88a3b8;
+}
+[data-theme="light"] {
+  --accent: #00717a;
+  --muted: #486173;
+}
+[data-theme="light"] .wing-node > .status {
+  color: #187152;
+}
+.installation-terminal .cyan,
+.site-footer .eyebrow {
+  color: #00e5ec;
+}
+.site-footer p {
+  color: #91a6b9;
+}
+.nav-shell {
+  isolation: auto !important;
+}
+.install-terminal-body > div > span:first-child {
+  color: #85a6bc;
+}
+.dashboard .muted,
+.installation-terminal .muted {
+  color: #91a6b9;
+}
+.hero::before {
+  inset: 0;
+}
+.metric > span svg {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  flex-shrink: 0;
+}
+.metric > span {
+  white-space: nowrap;
+  gap: 8px;
+}
+.brand-horizontal,
+.brand-stacked,
+.brand-white {
+  filter: contrast(1.6);
+  mask-image: none;
+}
+.brand-gallery .brand {
+  filter: none;
+}
+.architecture-map,
+.nav-shell {
+  isolation: isolate;
+}
+.studio-canvas,
+.migration-intro,
+.migration-visual,
+.feature-list,
+.heading-split > div {
+  min-width: 0;
+}

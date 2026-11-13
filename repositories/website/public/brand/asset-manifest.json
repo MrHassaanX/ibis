@@ -1,0 +1,42 @@
+[
+  {
+    "file": "IBIS-HORIZONTAL-VERSION.png",
+    "width": 2048,
+    "height": 682,
+    "sha256": "7764284dbb97bd011ef17f799e1752cc9dad136426f7ec39c4fadd56ebae76c4",
+    "derivative": "optimized/horizontal.webp",
+    "operation": "Proportional resize and WebP encoding only; opaque backgrounds and original geometry retained"
+  },
+  {
+    "file": "IBIS-STACKED-VERSION.png",
+    "width": 1122,
+    "height": 1402,
+    "sha256": "9748dd23887609b4b0c505663ab6e0364c9e673d100dab05ee0d07edd9ce91d0",
+    "derivative": "optimized/stacked.webp",
+    "operation": "Proportional resize and WebP encoding only; opaque backgrounds and original geometry retained"
+  },
+  {
+    "file": "IBIS-WHITE-MONOCHROME.png",
+    "width": 1122,
+    "height": 1402,
+    "sha256": "81cc092f110c886e4d99b49a7e12381ed5412c5246b01688c76c6d9691dc43ec",
+    "derivative": "optimized/white.webp",
+    "operation": "Proportional resize and WebP encoding only; opaque backgrounds and original geometry retained"
+  },
+  {
+    "file": "IBIS-BLACK-&-WHITE.png",
+    "width": 1122,
+    "height": 1402,
+    "sha256": "73366f11dd81734b72fa74e1b19b8c4ae39ccd54c8fcb5e54600b7815e72537f",
+    "derivative": "optimized/black.webp",
+    "operation": "Proportional resize and WebP encoding only; opaque backgrounds and original geometry retained"
+  },
+  {
+    "file": "IBIS-ICON.png",
+    "width": 1254,
+    "height": 1254,
+    "sha256": "3d452b11fb387afb69b7979b9367beeb3284ac215f9437db717cd5a109afa8d0",
+    "derivative": "optimized/icon.webp",
+    "operation": "Proportional resize and WebP encoding only; opaque backgrounds and original geometry retained"
+  }
+]

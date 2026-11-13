@@ -1,0 +1,3 @@
+@import '../../../packages/sdk/panel.css';
+@import './ibispanel.css';
+@source '../**/*.{ts,tsx}';

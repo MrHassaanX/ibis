@@ -1,0 +1,37 @@
+{
+  "_comment": "IbisPanel-maintained PTDL_v2 Egg for a user-uploaded Node.js HTTP application.",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2026-11-03T05:30:00+05:30",
+  "name": "IbisPanel Node.js Web",
+  "author": "admin@ibispanel.local",
+  "description": "Run a user-uploaded Node.js HTTP application on the assigned SERVER_PORT. Installation does not fetch code or dependencies. Supports the existing fixed fixture and an explicitly configured startup image.",
+  "features": [
+    "service.http"
+  ],
+  "docker_images": {
+    "Node.js 24.22.2 LTS": "ibispanel/node-http:24.22.2",
+    "Node.js 24.22.2 LTS (configurable startup)": "ibispanel/node-http:24.22.2-startup"
+  },
+  "file_denylist": [],
+  "startup": "/usr/local/bin/node /home/container/index.js",
+  "config": {
+    "files": "{}",
+    "startup": "{\"done\":[\"IbisPanel development HTTP ready\",\"regex:Ready in [0-9.]+(?:ms|s)\"],\"strip_ansi\":true}",
+    "logs": "{}",
+    "stop": "^SIGTERM"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/sh\nset -eu\nmkdir -p /mnt/server\nprintf '%s\\n' 'Upload index.js through the IbisPanel file manager.'",
+      "container": "node:24.22.2-bookworm-slim",
+      "entrypoint": "sh"
+    }
+  },
+  "variables": [],
+  "tags": [
+    "nodejs"
+  ]
+}

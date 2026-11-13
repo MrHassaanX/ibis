@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-02",
+  "sources": [
+    {
+      "repository": "panel",
+      "prefix": ".",
+      "commit": "ea742d332f5861a81e502857446b8df9cb9f0254",
+      "tree": "922428e2d550304374601b22e28cb694b6fc70a5",
+      "files": 2845,
+      "mappedManifestSha256": "59b9aff38ef07052bc668f3fbdbe346c86546400f3e290d9a680bb4872b23abd"
+    },
+    {
+      "repository": "wings",
+      "prefix": ".",
+      "commit": "6987d5e6f0612133e031255a99655e822d30579a",
+      "tree": "b60b52531dda15b4bd3a3ce54d5ce08640687572",
+      "files": 173,
+      "mappedManifestSha256": "232bd129ddcf74a0ba8662a00a5c928cd476b03974e08a11b6cfbea77f7805fd"
+    },
+    {
+      "repository": "eggs",
+      "prefix": "game-eggs",
+      "commit": "be654a201bf3b90446569167d4864edec1b33009",
+      "tree": "c72c7e766ef2c7ba195eccfa6880c1e2d47a685a",
+      "files": 588,
+      "mappedManifestSha256": "a12e1871567e49af5db5e3a020450fbc719609eac33a4c525871f32db593d71b"
+    },
+    {
+      "repository": "eggs",
+      "prefix": "application-eggs",
+      "commit": "122086603fce7b6582ad8cce7982c4367e2ea572",
+      "tree": "aa6c8155fcf925c0ca45366acae6f26313c20f77",
+      "files": 126,
+      "mappedManifestSha256": "e55d87b951e59b43dde6935b1b9f3eaeb8af5585803705931bc9ffe54bf57cc9"
+    },
+    {
+      "repository": "eggs",
+      "prefix": "generic-eggs",
+      "commit": "6e8d2546e493937ede885a17d64b7c4a368cacec",
+      "tree": "e86e204ce23aa422768752db0dfab3c9e6c681e6",
+      "files": 36,
+      "mappedManifestSha256": "5613f295dae58a14006db2bc6eb057a82fe42189197adb19357e131e19f5e838"
+    }
+  ],
+  "repositories": [
+    {
+      "name": "panel",
+      "initialHistoryPreserved": true,
+      "initialLicenseUnchanged": true,
+      "objectIntegrity": "passed"
+    },
+    {
+      "name": "wings",
+      "initialHistoryPreserved": true,
+      "initialLicenseUnchanged": true,
+      "objectIntegrity": "passed"
+    },
+    {
+      "name": "eggs",
+      "initialHistoryPreserved": true,
+      "initialLicenseUnchanged": true,
+      "objectIntegrity": "passed"
+    },
+    {
+      "name": "installer",
+      "initialHistoryPreserved": true,
+      "initialLicenseUnchanged": true,
+      "objectIntegrity": "passed"
+    },
+    {
+      "name": "migrator",
+      "initialHistoryPreserved": true,
+      "initialLicenseUnchanged": true,
+      "objectIntegrity": "passed"
+    },
+    {
+      "name": "docs",
+      "initialHistoryPreserved": true,
+      "initialLicenseUnchanged": true,
+      "objectIntegrity": "passed"
+    }
+  ],
+  "errors": [
+    "eggs/game-eggs/sunkenland/world_files/Worlds/World~11223344-5566-7788-99aa-bbccddeeff00/world.json: upstream JSON syntax issue: Expected property name or '}' in JSON at position 6436 (line 258 column 14)"
+  ],
+  "warnings": [
+    "panel/.oxlintrc.json: JSONC configuration; strict JSON parsing not applicable",
+    "panel/packages/sdk/docs-samples/tsconfig.json: JSONC configuration; strict JSON parsing not applicable",
+    "panel/tsconfig.json: JSONC configuration; strict JSON parsing not applicable"
+  ],
+  "jsonFilesParsed": 523,
+  "runtimeTests": "Not run: PHP, Composer, Go, Docker, MySQL/MariaDB and Redis unavailable; npm and node_modules absent. No dependency installation attempted."
+}
